@@ -9,6 +9,60 @@
 QUIZ_TOPICS = ["ruby", "rspec", "testing", "arrays", "objects"]
 
 # create a quiz object
+class Quiz
+  attr_reader :numbers, :trash
+
+  def initialize
+    @numbers = []
+    @trash = []
+  end
+
+  def add(num)
+    num_array = []
+    if num.class != Array
+      num_array << num
+    else
+      num_array = num.flatten
+    end
+
+    num_array.each do |each_num|
+      if each_num.class == Fixnum
+        @numbers << each_num
+      else
+        @trash << each_num
+      end
+    end
+  end
+
+  def numbers
+    return @numbers.to_s
+  end
+
+  def trash
+    return @trash.to_s
+  end
+
+  def count(num)
+    @numbers.count(num)
+  end
+
+  def rotate(length)
+    length.times do |i|
+      item = @numbers.shift
+      @numbers.push(item)
+    end
+  end
+
+  def count_evens
+    count_array = []
+    @numbers.each do |num|
+      if num % 2 == 0
+        count_array << num
+      end
+    end
+    count_array.length
+  end
+end
 
 # We can add numbers to it
 # quiz = Quiz.new
@@ -24,7 +78,7 @@ QUIZ_TOPICS = ["ruby", "rspec", "testing", "arrays", "objects"]
 
 # Or arrays of numbers
 # quiz.add([4, 2, true, 9])
-# quiz.numbers => "[5, 3, 4, 3]"
+# quiz.numbers => "[5, 3, 4, 2, 9]"
 
 # We can't access the array directly
 # quiz.numbers.push(5)
@@ -45,4 +99,4 @@ QUIZ_TOPICS = ["ruby", "rspec", "testing", "arrays", "objects"]
 
 # Prints out the number of even numbers in the array.
 # quiz.numbers => "[9, 4, 3, 5, 3]"
-# quiz.count_events => 1
+# quiz.count_evens => 1
